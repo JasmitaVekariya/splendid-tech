@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import Link from "next/link";
 import {
   Mail,
   Phone,
@@ -54,11 +55,11 @@ export function Footer() {
     {
       title: "Our Services",
       links: [
-        { label: "Staffing", href: "#" },
-        { label: "Training", href: "#" },
-        { label: "Software Development", href: "#" },
-        { label: "Website Development", href: "#" },
-        { label: "Mobile App", href: "#" },
+        { label: "Staffing", href: "/services/staffing" },
+        { label: "Training", href: "/services/training" },
+        { label: "Software Development", href: "/services/software-development" },
+        { label: "Website Development", href: "/services/website-development" },
+        { label: "Mobile App Development", href: "/services/mobile-app-development" },
       ],
     },
   ];
@@ -147,13 +148,13 @@ export function Footer() {
               <ul className="space-y-4">
                 {section.links.map((link) => (
                   <li key={link.label} className="group">
-                    <a
+                    <Link
                       href={link.href}
                       className="flex items-center text-slate-600 hover:text-[#2029b8] transition-colors"
                     >
-                      <ChevronRight size={16} className="mr-2 text-slate-400 group-hover:text-[#3ca2fa] transition-colors" />
+                      <ChevronRight size={16} className="mr-2 text-slate-400 group-hover:text-[#2029b8] transition-colors" />
                       {link.label}
-                    </a>
+                    </Link>
                   </li>
                 ))}
               </ul>

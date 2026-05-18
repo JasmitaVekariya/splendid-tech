@@ -3,34 +3,42 @@
 import React from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { Quote } from "lucide-react";
+import { Quote, Sparkles } from "lucide-react";
 
 export const FounderSection = () => {
   return (
-    <section className="py-24 bg-slate-50 overflow-hidden">
+    <section className="py-24 bg-white overflow-hidden border-t border-slate-100">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         {/* Section Heading */}
-        <div className="text-center mb-16 flex flex-col items-center">
+        <div className="flex flex-col items-center text-center max-w-3xl mx-auto mb-16">
           <motion.div 
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="flex items-center justify-center gap-4 mb-6"
+            className="flex items-center gap-2 mb-4 px-4 py-1.5 rounded-full bg-[#2029b8]/10 text-[#2029b8] font-bold uppercase tracking-wider text-xs border border-[#2029b8]/20"
           >
-            <div className="w-12 h-[2px] bg-primary" />
-            <span className="text-sm font-bold tracking-[0.3em] uppercase text-primary">Founder's Message</span>
-            <div className="w-12 h-[2px] bg-primary" />
+            <Sparkles className="w-3.5 h-3.5" /> FOUNDER'S MESSAGE
           </motion.div>
 
           <motion.h2 
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="text-3xl md:text-5xl font-heading font-black text-[#192bc2] tracking-tighter uppercase"
+            transition={{ delay: 0.1 }}
+            className="text-4xl md:text-5xl font-black text-slate-800 tracking-tight leading-[1.15] uppercase text-center"
           >
-            Words from our Founder
+            Words from our <span className="text-[#2029b8]">Founder</span>
           </motion.h2>
+
+          <motion.p 
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
+            className="mt-6 text-slate-600 text-base md:text-lg leading-relaxed max-w-3xl text-center"
+          >
+            A personal message from our leadership on bridging technical expertise with global placement opportunity compliance.
+          </motion.p>
         </div>
 
         {/* Layout: Photo | Content | Photo */}
@@ -76,7 +84,7 @@ export const FounderSection = () => {
               
               <div className="flex flex-col items-center">
                 <div className="w-16 h-1 bg-primary/20 rounded-full mb-4" />
-                <p className="font-heading font-black text-xl text-[#192bc2] uppercase tracking-wider">Chintan Shah</p>
+                <p className="font-heading font-black text-xl text-[#2029b8] uppercase tracking-wider">Chintan Shah</p>
                 <p className="text-sm font-bold text-slate-400 uppercase tracking-widest mt-1">Founder & CEO, Splendid Tech</p>
               </div>
             </div>

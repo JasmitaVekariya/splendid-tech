@@ -4,7 +4,7 @@ import React, { useRef, useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight, X } from "lucide-react";
+import { ArrowRight, X, Sparkles } from "lucide-react";
 
 const VideoCard = ({ index, onOpen }: { index: number; onOpen: () => void }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -56,26 +56,35 @@ export const TestimonialsPreview = () => {
     <section className="py-24 bg-white overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         {/* Heading */}
-        <div className="text-center mb-16">
+        <div className="flex flex-col items-center text-center max-w-3xl mx-auto mb-16">
           <motion.div 
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="flex items-center justify-center gap-4 mb-6"
+            className="flex items-center gap-2 mb-4 px-4 py-1.5 rounded-full bg-[#2029b8]/10 text-[#2029b8] font-bold uppercase tracking-wider text-xs border border-[#2029b8]/20"
           >
-            <div className="w-12 h-[2px] bg-primary" />
-            <span className="text-sm font-bold tracking-[0.3em] uppercase text-primary">Testimonials</span>
+            <Sparkles className="w-3.5 h-3.5" /> SUCCESS STORIES
           </motion.div>
-
+          
           <motion.h2 
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="text-3xl md:text-5xl font-heading font-black text-[#192bc2] tracking-tighter uppercase"
+            transition={{ delay: 0.1 }}
+            className="text-4xl md:text-5xl font-black text-slate-800 tracking-tight leading-[1.15] uppercase text-center"
           >
-            Listen to what our Testimonials have to say
+            Listen to what our <span className="text-[#2029b8]">Candidates say</span>
           </motion.h2>
+
+          <motion.p 
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
+            className="mt-6 text-slate-600 text-base md:text-lg leading-relaxed max-w-3xl text-center"
+          >
+            Real results from real tech professionals who unlocked direct placements in the USA. Watch their inspiring placement video testimonials.
+          </motion.p>
         </div>
 
         {/* Grid */}
@@ -91,7 +100,7 @@ export const TestimonialsPreview = () => {
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="px-10 py-4 bg-[#192bc2] text-white rounded-full font-bold text-lg shadow-lg shadow-blue-500/20 hover:bg-[#0f1973] transition-all flex items-center gap-2 group"
+              className="px-10 py-4 bg-[#2029b8] text-white rounded-full font-bold text-lg shadow-lg shadow-[#2029b8]/20 hover:bg-[#181d85] transition-all flex items-center gap-2 group"
             >
               View More Testimonials
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />

@@ -19,6 +19,8 @@ export const metadata: Metadata = {
   description: "Expert IT training, staffing, and development solutions for international students and professionals in the USA. Land your dream tech job with our 1:1 mentorship and placement support.",
 };
 
+import { FloatingContactButtons } from "@/components/ui/FloatingContactButtons";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -29,7 +31,10 @@ export default function RootLayout({
       lang="en"
       className={`${orbitron.variable} ${inter.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        {children}
+        <FloatingContactButtons />
+      </body>
     </html>
   );
 }

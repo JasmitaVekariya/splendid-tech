@@ -66,7 +66,7 @@ export const BouncyCardsFeatures = () => {
           </div>
         </BounceCard>
 
-        <BounceCard className="col-span-12 md:col-span-6" href="/services/mobile-app">
+        <BounceCard className="col-span-12 md:col-span-6" href="/services/mobile-app-development">
           <CardTitle icon={<Smartphone className="w-8 h-8 mb-4 text-yellow-500" />}>Mobile App Development</CardTitle>
           <div className="absolute bottom-0 left-4 right-4 top-40 translate-y-8 rounded-t-3xl bg-gradient-to-br from-yellow-400 to-yellow-600 p-6 transition-transform duration-[250ms] group-hover:translate-y-4 group-hover:rotate-[2deg] shadow-2xl shadow-slate-900/40 flex flex-col items-center justify-center">
             <span className="block text-center font-bold text-white text-xl mb-2">

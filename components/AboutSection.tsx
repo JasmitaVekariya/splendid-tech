@@ -3,6 +3,7 @@
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform, AnimatePresence, useSpring, MotionValue } from 'framer-motion';
 import Image from 'next/image';
+import { Sparkles } from 'lucide-react';
 
 const journeySteps = [
   {
@@ -45,16 +46,16 @@ interface TimelineStepProps {
   progress: MotionValue<number>;
 }
 
-const TimelineStep = ({ 
-  step, 
-  index, 
-  activeIndex, 
-  progress 
+const TimelineStep = ({
+  step,
+  index,
+  activeIndex,
+  progress
 }: TimelineStepProps) => {
   const isActive = activeIndex === index;
-  
+
   return (
-    <div className="relative pl-12 pb-6 last:pb-0 group">
+    <div className="relative pl-12 pb-[clamp(12px,2.5vh,28px)] last:pb-0 group">
       {/* Numbered Circle */}
       <div className="absolute left-0 top-0 z-10">
         <motion.div 
@@ -64,7 +65,7 @@ const TimelineStep = ({
             color: isActive ? "#ffffff" : "#64748b",
             boxShadow: isActive ? "0 0 15px rgba(25, 43, 194, 0.3)" : "none"
           }}
-          className="w-8 h-8 rounded-full flex items-center justify-center font-bold text-xs transition-all duration-500 border border-slate-200"
+          className="w-8 h-8 rounded-full flex items-center justify-center font-bold text-xs md:text-sm transition-all duration-500 border border-slate-200"
         >
           {index + 1}
         </motion.div>
@@ -77,12 +78,12 @@ const TimelineStep = ({
           x: isActive ? 0 : -5 
         }}
         transition={{ duration: 0.4 }}
-        className="flex flex-col gap-1"
+        className="flex flex-col gap-0.5 md:gap-1"
       >
-        <h3 className="text-lg md:text-xl font-heading font-black uppercase tracking-tight text-[#0f172a]">
+        <h3 className="text-[clamp(14px,2vh,20px)] font-heading font-black uppercase tracking-tight text-[#0f172a]">
           {step.title}
         </h3>
-        <p className="text-slate-500 text-xs md:text-sm leading-relaxed max-w-xs">
+        <p className="text-slate-500 text-[clamp(11px,1.4vh,14px)] leading-relaxed max-w-xs">
           {step.description}
         </p>
       </motion.div>
@@ -92,10 +93,10 @@ const TimelineStep = ({
 
 export function AboutSection() {
   const containerRef = useRef<HTMLDivElement>(null);
-  
+
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start 0.3", "end 0.7"]
+    offset: ["start 0.15", "end 0.85"]
   });
 
   const scrollSpring = useSpring(scrollYProgress, {
@@ -123,55 +124,63 @@ export function AboutSection() {
   return (
     <section id="about" className="relative w-full bg-white">
       {/* Introduction Heading (Centered) */}
-      <div className="max-w-7xl mx-auto px-6 md:px-12 pt-12 pb-4 text-center flex flex-col items-center">
+      <div className="flex flex-col items-center text-center max-w-3xl mx-auto pt-24 pb-8 px-6 md:px-12">
         <motion.div 
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="flex items-center gap-4 mb-4"
+          className="flex items-center gap-2 mb-4 px-4 py-1.5 rounded-full bg-[#2029b8]/10 text-[#2029b8] font-bold uppercase tracking-wider text-xs border border-[#2029b8]/20"
         >
-          <div className="w-12 h-[2px] bg-primary" />
-          <span className="text-sm font-bold tracking-[0.3em] uppercase text-primary">How it works</span>
-          <div className="w-12 h-[2px] bg-primary" />
+          <Sparkles className="w-3.5 h-3.5" /> HOW IT WORKS
         </motion.div>
-        
-        <motion.h2 
-          initial={{ opacity: 0, y: 30 }}
+
+        <motion.h2
+          initial={{ opacity: 0, y: 15 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.1 }}
-          className="text-3xl md:text-5xl lg:text-6xl font-heading font-black leading-[1.1] tracking-tighter uppercase text-[#0f172a] max-w-4xl"
+          className="text-4xl md:text-5xl font-black text-slate-800 tracking-tight leading-[1.15] uppercase text-center"
         >
-          Your Journey to <span className="text-primary">USA Success</span> Starts Here.
+          Your Journey to <span className="text-[#2029b8]">USA Success</span> Starts Here
         </motion.h2>
+
+        <motion.p 
+          initial={{ opacity: 0, y: 15 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.2 }}
+          className="mt-6 text-slate-600 text-base md:text-lg leading-relaxed max-w-3xl text-center"
+        >
+          We guide you step-by-step through our active software delivery training, corporate resume screening bypass, direct recruitment submittals, and OPT/STEM immigration sponsorship.
+        </motion.p>
       </div>
 
       {/* Main Scroll Content */}
-      <div 
+      <div
         ref={containerRef}
         style={{ height: `${journeySteps.length * 100}vh` }}
         className="relative w-full"
       >
-        <div className="sticky top-0 h-screen w-full flex items-center overflow-hidden">
-          <div className="max-w-7xl mx-auto px-6 md:px-12 w-full grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            
+        <div className="sticky top-[80px] md:top-[96px] h-[calc(100vh-80px)] md:h-[calc(100vh-96px)] w-full flex items-start pt-8 md:pt-12 lg:pt-16 overflow-hidden">
+          <div className="max-w-7xl mx-auto px-6 md:px-12 w-full grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
+
             {/* Left Column: Timeline Content */}
-            <div className="relative">
+            <div className="relative py-4">
               {/* Connecting Line Background */}
               <div className="absolute left-[19px] top-5 bottom-5 w-[2px] bg-slate-100" />
-              
+
               {/* Animated Connecting Line */}
-              <motion.div 
+              <motion.div
                 style={{ height: lineHeight }}
                 className="absolute left-[19px] top-5 w-[2px] bg-primary z-0 origin-top shadow-[0_0_10px_rgba(25,43,194,0.3)]"
               />
 
               <div className="relative">
                 {journeySteps.map((step, index) => (
-                  <TimelineStep 
-                    key={index} 
-                    step={step} 
-                    index={index} 
+                  <TimelineStep
+                    key={index}
+                    step={step}
+                    index={index}
                     progress={scrollYProgress}
                     activeIndex={activeIndex}
                   />
@@ -180,7 +189,7 @@ export function AboutSection() {
             </div>
 
             {/* Right Column: Dynamic Media Card */}
-            <div className="hidden lg:block relative aspect-[4/3] w-full">
+            <div className="hidden lg:block relative aspect-[4/3] w-full max-h-[clamp(280px,45vh,440px)]">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={activeIndex}
@@ -192,22 +201,22 @@ export function AboutSection() {
                 >
                   {/* Subtle Glow Effect */}
                   <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-transparent to-blue-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
-                  
-                  <Image 
-                    src={journeySteps[activeIndex].image} 
+
+                  <Image
+                    src={journeySteps[activeIndex].image}
                     alt={journeySteps[activeIndex].title}
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-[2s] ease-out"
                     sizes="50vw"
                     priority
                   />
-                  
+
                   {/* Decorative Overlay */}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-40" />
-                  
+
                   {/* Step Badge */}
                   <div className="absolute bottom-10 left-10">
-                    <motion.div 
+                    <motion.div
                       initial={{ opacity: 0, x: -20 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: 0.3 }}
@@ -226,7 +235,7 @@ export function AboutSection() {
 
       {/* Final Wrap-up Section */}
       <div className="py-32 max-w-5xl mx-auto px-6 text-center">
-        <motion.p 
+        <motion.p
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}

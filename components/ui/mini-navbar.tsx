@@ -1,10 +1,19 @@
 "use client";
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
-import { Menu, X, ArrowRight } from "lucide-react";
+import { 
+  Menu, 
+  X, 
+  ArrowRight, 
+  Users, 
+  GraduationCap, 
+  Code2, 
+  Globe, 
+  Smartphone 
+} from "lucide-react";
 
 const navLinksData = [
   { label: 'Home', href: '/' },
@@ -13,12 +22,50 @@ const navLinksData = [
   { label: 'Blogs', href: '/blogs' },
 ];
 
+const dropdownServices = [
+  {
+    slug: "staffing",
+    title: "Staffing",
+    subtitle: "Talent placement & recruitment",
+    icon: Users,
+    color: "text-amber-500 bg-amber-50 border-amber-100"
+  },
+  {
+    slug: "training",
+    title: "Training",
+    subtitle: "Skill development program",
+    icon: GraduationCap,
+    color: "text-[#2029b8] bg-[#2029b8]/5 border-[#2029b8]/10"
+  },
+  {
+    slug: "software-development",
+    title: "Software Development",
+    subtitle: "Scalable custom tech solutions",
+    icon: Code2,
+    color: "text-fuchsia-500 bg-fuchsia-50 border-fuchsia-100"
+  },
+  {
+    slug: "website-development",
+    title: "Website Development",
+    subtitle: "Stunning responsive digital presence",
+    icon: Globe,
+    color: "text-cyan-500 bg-cyan-50 border-cyan-100"
+  },
+  {
+    slug: "mobile-app-development",
+    title: "Mobile App Development",
+    subtitle: "iOS & Android mobile experiences",
+    icon: Smartphone,
+    color: "text-orange-500 bg-orange-50 border-orange-100"
+  }
+];
+
 const AnimatedNavLink = ({ href, children, isActive }: { href: string; children: React.ReactNode; isActive?: boolean }) => {
   return (
     <Link 
       href={href} 
       className={cn(
-        "relative px-4 py-2 text-sm font-semibold transition-colors duration-300",
+        "relative px-4 py-2 text-sm font-semibold transition-colors duration-300 flex items-center gap-1.5",
         isActive ? "text-primary" : "text-gray-600 hover:text-primary"
       )}
     >
@@ -43,6 +90,8 @@ export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [activePath, setActivePath] = useState('/');
+  const [isServicesOpen, setIsServicesOpen] = useState(false);
+  const [isMobileServicesOpen, setIsMobileServicesOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -53,7 +102,10 @@ export function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const toggleMenu = () => setIsOpen(!isOpen);
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
+    setIsMobileServicesOpen(false);
+  };
 
   return (
     <>
@@ -97,15 +149,83 @@ export function Navbar() {
 
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center bg-gray-50/50 backdrop-blur-md rounded-full px-2 py-1.5 border border-gray-200/50 shadow-sm">
-            {navLinksData.map((link) => (
-              <AnimatedNavLink 
-                key={link.label} 
-                href={link.href}
-                isActive={activePath === link.href}
-              >
-                {link.label}
-              </AnimatedNavLink>
-            ))}
+            {navLinksData.map((link) => {
+              if (link.label === "Services") {
+                return (
+                  <div 
+                    key={link.label}
+                    className="relative py-1"
+                    onMouseEnter={() => setIsServicesOpen(true)}
+                    onMouseLeave={() => setIsServicesOpen(false)}
+                  >
+                    <AnimatedNavLink 
+                      href={link.href}
+                      isActive={activePath.startsWith('/services')}
+                    >
+                      <span className="flex items-center gap-1.5">
+                        Services
+                        <svg 
+                          viewBox="0 0 24 24" 
+                          className={cn(
+                            "w-3.5 h-3.5 transition-transform duration-300 fill-none stroke-current stroke-[2.5]",
+                            isServicesOpen ? "rotate-180 text-primary" : "text-gray-400"
+                          )}
+                        >
+                          <path d="M6 9l6 6 6-6" />
+                        </svg>
+                      </span>
+                    </AnimatedNavLink>
+
+                    {/* Premium Hover Dropdown */}
+                    <AnimatePresence>
+                      {isServicesOpen && (
+                        <motion.div 
+                          initial={{ opacity: 0, y: 15, scale: 0.95 }}
+                          animate={{ opacity: 1, y: 0, scale: 1 }}
+                          exit={{ opacity: 0, y: 15, scale: 0.95 }}
+                          transition={{ duration: 0.2, ease: "easeOut" }}
+                          className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 w-80 bg-white border border-slate-100 rounded-3xl shadow-[0_25px_60px_rgba(0,0,0,0.08)] p-3.5 z-50 flex flex-col gap-1"
+                        >
+                          {dropdownServices.map((service) => (
+                            <Link 
+                              href={`/services/${service.slug}`}
+                              key={service.slug}
+                              onClick={() => setIsServicesOpen(false)}
+                              className="flex items-center gap-3.5 p-2.5 rounded-2xl hover:bg-slate-50 transition-colors duration-200 group/item"
+                            >
+                              <div className={cn(
+                                "w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 transition-transform duration-200 group-hover/item:scale-105 border",
+                                service.color
+                              )}>
+                                <service.icon className="w-5 h-5" />
+                              </div>
+                              <div className="text-left">
+                                <span className="block text-[13px] font-extrabold text-slate-800 transition-colors duration-200 group-hover/item:text-[#2029b8]">
+                                  {service.title}
+                                </span>
+                                <span className="block text-[10px] text-slate-400 font-bold leading-none mt-1">
+                                  {service.subtitle}
+                                </span>
+                              </div>
+                            </Link>
+                          ))}
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                );
+              }
+
+              return (
+                <AnimatedNavLink 
+                  key={link.label} 
+                  href={link.href}
+                  isActive={activePath === link.href}
+                >
+                  {link.label}
+                </AnimatedNavLink>
+              );
+            })}
           </nav>
 
           {/* Right Section: CTA & Menu Toggle */}
@@ -176,32 +296,97 @@ export function Navbar() {
             </div>
 
             {/* Mobile Menu Content */}
-            <div className="flex-1 flex flex-col justify-center px-8">
+            <div className="flex-1 flex flex-col justify-center px-8 overflow-y-auto py-6">
               <nav className="flex flex-col gap-6">
-                {navLinksData.map((link, i) => (
-                  <motion.div
-                    key={link.label}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: i * 0.1 }}
-                  >
-                    <Link 
-                      href={link.href}
-                      onClick={toggleMenu}
-                      className="text-2xl md:text-3xl font-bold text-gray-900 hover:text-primary transition-colors flex items-center justify-between group"
+                {navLinksData.map((link, i) => {
+                  if (link.label === "Services") {
+                    return (
+                      <motion.div
+                        key={link.label}
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: i * 0.1 }}
+                        className="flex flex-col"
+                      >
+                        <button 
+                          onClick={() => setIsMobileServicesOpen(!isMobileServicesOpen)}
+                          className="text-2xl md:text-3xl font-bold text-gray-900 hover:text-primary transition-colors flex items-center justify-between group py-1 text-left w-full"
+                        >
+                          <span className="font-heading tracking-tight">Services</span>
+                          <motion.span 
+                            animate={{ rotate: isMobileServicesOpen ? 90 : 0 }}
+                            transition={{ duration: 0.2 }}
+                            className="text-slate-400 text-lg md:text-2xl"
+                          >
+                            {isMobileServicesOpen ? "−" : "+"}
+                          </motion.span>
+                        </button>
+                        
+                        <AnimatePresence>
+                          {isMobileServicesOpen && (
+                            <motion.div
+                              initial={{ opacity: 0, height: 0 }}
+                              animate={{ opacity: 1, height: "auto" }}
+                              exit={{ opacity: 0, height: 0 }}
+                              transition={{ duration: 0.25 }}
+                              className="overflow-hidden pl-4 flex flex-col gap-3.5 mt-3 border-l-2 border-[#2029b8]/10"
+                            >
+                              <Link
+                                href="/services"
+                                onClick={toggleMenu}
+                                className="text-sm font-extrabold text-[#2029b8] hover:text-slate-900 transition-colors py-1 flex items-center gap-1 uppercase tracking-wider"
+                              >
+                                All Services <ArrowRight className="w-3.5 h-3.5" />
+                              </Link>
+                              
+                              {dropdownServices.map((service) => (
+                                <Link
+                                  key={service.slug}
+                                  href={`/services/${service.slug}`}
+                                  onClick={toggleMenu}
+                                  className="text-base font-bold text-slate-600 hover:text-primary transition-colors flex items-center gap-3 py-1"
+                                >
+                                  <div className={cn(
+                                    "w-8 h-8 rounded-lg flex items-center justify-center border flex-shrink-0",
+                                    service.color
+                                  )}>
+                                    <service.icon className="w-4.5 h-4.5" />
+                                  </div>
+                                  <span>{service.title}</span>
+                                </Link>
+                              ))}
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+                      </motion.div>
+                    );
+                  }
+
+                  return (
+                    <motion.div
+                      key={link.label}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: i * 0.1 }}
                     >
-                      <span className="font-heading tracking-tight">{link.label}</span>
-                      <ArrowRight size={24} className="opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" />
-                    </Link>
-                  </motion.div>
-                ))}
+                      <Link 
+                        href={link.href}
+                        onClick={toggleMenu}
+                        className="text-2xl md:text-3xl font-bold text-gray-900 hover:text-primary transition-colors flex items-center justify-between group py-1"
+                      >
+                        <span className="font-heading tracking-tight">{link.label}</span>
+                        <ArrowRight size={24} className="opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" />
+                      </Link>
+                    </motion.div>
+                  );
+                })}
               </nav>
 
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.5 }}
-                className="mt-12"
+                className="mt-10"
               >
                 <Link 
                   href="/contact"
@@ -215,7 +400,7 @@ export function Navbar() {
             </div>
 
             {/* Mobile Menu Footer */}
-            <div className="px-8 py-8 border-t border-gray-100 flex justify-between items-center text-xs font-semibold text-gray-400 uppercase tracking-widest">
+            <div className="px-8 py-6 border-t border-gray-100 flex justify-between items-center text-xs font-semibold text-gray-400 uppercase tracking-widest">
               <span>© {new Date().getFullYear()} Splendid Tech</span>
               <div className="flex gap-4">
                 <span className="hover:text-primary transition-colors cursor-pointer">LI</span>
@@ -229,4 +414,3 @@ export function Navbar() {
     </>
   );
 }
-

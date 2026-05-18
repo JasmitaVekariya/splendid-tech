@@ -4,7 +4,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight, CheckCircle2, Play, Pause, Volume2, VolumeX } from "lucide-react";
+import { ArrowRight, Volume2, VolumeX } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 // Right-side images from HeroCarousel (synced with testimonial rotation)
@@ -161,7 +161,7 @@ const VideoShowcaseCard = () => {
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] h-[80%] bg-gradient-to-r from-primary/10 via-blue-500/5 to-purple-500/10 blur-[100px] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
       
       {/* Container - Aligned, Minor Curve Corners (5%), No Border */}
-      <div className="relative z-10 w-full md:h-[480px] aspect-video md:aspect-auto overflow-hidden bg-gray-900 shadow-[0_32px_80px_rgba(0,0,0,0.2)] backdrop-blur-sm rounded-[32px] md:rounded-[40px]">
+      <div className="relative z-10 w-full md:h-[480px] aspect-video md:aspect-auto overflow-hidden bg-gray-900 shadow-[0_24px_70px_rgba(0,0,0,0.08)] backdrop-blur-sm rounded-[32px] md:rounded-[40px]">
         <div className="w-full h-full relative">
           <video
             ref={videoRef}
@@ -278,7 +278,7 @@ export function ModernHero() {
             sizes="100vw"
             priority
           />
-          <div className="absolute inset-0 bg-white/95 backdrop-blur-[2px]" />
+          <div className="absolute inset-0 bg-white/92 backdrop-blur-[2px]" />
         </motion.div>
       </AnimatePresence>
 
@@ -289,27 +289,28 @@ export function ModernHero() {
       </div>
 
       <div className="relative z-10">
-        {/* ROW 1: Content Grid */}
-        <div className="max-w-7xl mx-auto px-6 md:px-12 mb-16 md:mb-24">
-          <div className="grid grid-cols-1 lg:grid-cols-12 items-center gap-12 lg:gap-16">
+        {/* ROW 1: Centered Content */}
+        <div className="max-w-4xl mx-auto px-6 md:px-12 mb-16 md:mb-24">
+          <div className="flex flex-col items-center justify-center text-center">
             
             {/* LEFT: Heading */}
-            <div className="lg:col-span-7 flex flex-col items-center text-center lg:items-start lg:text-left">
+            <div className="flex flex-col items-center text-center">
               <motion.div 
-                initial={{ opacity: 0, x: -30 }} 
-                animate={{ opacity: 1, x: 0 }} 
+                initial={{ opacity: 0, y: 30 }} 
+                animate={{ opacity: 1, y: 0 }} 
                 transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                className="flex flex-col items-center"
               >
                 <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/5 border border-primary/10 text-primary text-[12px] md:text-[14px] font-bold mb-10">
                   <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
                   Empowering 500+ Career Journeys
                 </div>
                 
-                <h1 className="flex flex-col font-black text-[#0f172a] leading-[0.95] tracking-tighter uppercase overflow-visible">
-                  <span className="text-2xl md:text-3xl lg:text-[2.2rem] text-slate-800 mb-2 font-bold opacity-90">Land Your</span>
+                <h1 className="flex flex-col items-center text-center font-black text-[#0f172a] leading-[0.95] tracking-tighter uppercase overflow-visible">
+                  <span className="text-3xl md:text-4xl lg:text-[2.6rem] text-slate-800 mb-2 font-bold opacity-90">Land Your</span>
                   
                   {/* Vertical Scrolling Word Container */}
-                  <div className="h-[50px] md:h-[70px] lg:h-[80px] relative overflow-visible my-2 flex items-center justify-center lg:justify-start">
+                  <div className="h-[60px] md:h-[80px] lg:h-[90px] relative overflow-visible my-2 flex items-center justify-center">
                     <AnimatePresence mode="wait">
                       <motion.span
                         key={wordIndex}
@@ -320,27 +321,45 @@ export function ModernHero() {
                           duration: 0.5, 
                           ease: [0.16, 1, 0.3, 1]
                         }}
-                        className="absolute text-3xl md:text-4xl lg:text-[3.6rem] text-primary drop-shadow-sm whitespace-nowrap"
+                        className="absolute text-4xl md:text-5xl lg:text-[4.2rem] text-primary drop-shadow-sm whitespace-nowrap"
                       >
                         {rotatingWords[wordIndex]}
                       </motion.span>
                     </AnimatePresence>
                   </div>
                   
-                  <span className="text-2xl md:text-3xl lg:text-[2.2rem] text-slate-800 mt-2 font-bold opacity-90">in the USA</span>
+                  <span className="text-3xl md:text-4xl lg:text-[2.6rem] text-slate-800 mt-2 font-bold opacity-90">in the USA</span>
                 </h1>
+
+                {/* CTA Buttons */}
+                <div className="flex flex-col sm:flex-row items-center gap-4 mt-10 w-full justify-center">
+                  <Link 
+                    href="/contact"
+                    className="relative group inline-flex items-center justify-center px-8 py-3.5 rounded-full bg-primary text-white text-xs md:text-sm font-black uppercase tracking-wider shadow-[0_10px_25px_rgba(25,43,194,0.25)] hover:shadow-[0_15px_35px_rgba(25,43,194,0.35)] transition-all duration-300 hover:-translate-y-[2px]"
+                  >
+                    Download Brochure
+                    <ArrowRight className="w-4 h-4 ml-2 transition-transform duration-300 group-hover:translate-x-1" />
+                  </Link>
+
+                  <Link 
+                    href="/contact"
+                    className="inline-flex items-center justify-center px-8 py-3.5 rounded-full bg-white/40 backdrop-blur-md border border-slate-200/80 text-slate-800 text-xs md:text-sm font-black uppercase tracking-wider shadow-sm hover:bg-white/80 transition-all duration-300 hover:-translate-y-[2px]"
+                  >
+                    Book Demo
+                  </Link>
+                </div>
               </motion.div>
             </div>
 
             {/* RIGHT: Side-by-Side Profile Cards */}
-            <div className="lg:col-span-5 flex flex-row items-center justify-center lg:justify-end gap-3 md:gap-6 pt-4">
+            {/* <div className="lg:col-span-5 flex flex-row items-center justify-center lg:justify-end gap-3 md:gap-6 pt-4">
               <AnimatePresence mode="popLayout">
                 <div className="flex flex-row gap-3 md:gap-6" key={currentIndex}>
                   <TestimonialCard user={user1} isSquare={true} />
                   <TestimonialCard user={user2} isSquare={true} />
                 </div>
               </AnimatePresence>
-            </div>
+            </div> */}
           </div>
         </div>
 
@@ -349,6 +368,9 @@ export function ModernHero() {
           <VideoShowcaseCard />
         </div>
       </div>
+
+      {/* Smooth gradient transition to the next section */}
+      <div className="absolute bottom-0 left-0 right-0 h-24 md:h-48 bg-gradient-to-t from-white via-white/90 to-transparent pointer-events-none z-[5]" />
     </section>
   );
 }
