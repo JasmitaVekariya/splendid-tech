@@ -65,7 +65,7 @@ const AnimatedNavLink = ({ href, children, isActive }: { href: string; children:
     <Link 
       href={href} 
       className={cn(
-        "relative px-4 py-2 text-sm font-semibold transition-colors duration-300 flex items-center gap-1.5",
+        "relative px-3 md:px-4 py-1.5 text-[13px] font-semibold transition-colors duration-300 flex items-center gap-1.5",
         isActive ? "text-primary" : "text-gray-600 hover:text-primary"
       )}
     >
@@ -122,8 +122,8 @@ export function Navbar() {
           className={cn(
             "flex items-center justify-between transition-all duration-500 ease-[cubic-bezier(0.23,1,0.32,1)] relative",
             isScrolled 
-              ? "w-full max-w-7xl bg-white/70 backdrop-blur-2xl border border-white/40 shadow-[0_20px_50px_rgba(0,0,0,0.1)] rounded-full px-4 md:px-8 py-2.5" 
-              : "w-full max-w-7xl bg-transparent border-transparent py-4"
+              ? "w-full max-w-7xl bg-white/70 backdrop-blur-2xl border border-white/40 shadow-[0_20px_50px_rgba(0,0,0,0.1)] rounded-full px-4 md:px-6 py-1.5 md:py-2" 
+              : "w-full max-w-7xl bg-transparent border-transparent py-2 md:py-3"
           )}
         >
           {/* Decorative shine for scrolled pill */}
@@ -134,27 +134,29 @@ export function Navbar() {
           )}
 
           {/* Logo Section */}
-          <Link href="/" className="relative z-10 flex items-center group">
-            <motion.div layout className="flex items-center">
-              <img 
-                src="/logo.png" 
-                alt="Splendid Tech" 
-                className={cn(
-                  "h-auto transition-all duration-500",
-                  isScrolled ? "w-24 md:w-32" : "w-32 md:w-48"
-                )}
-              />
-            </motion.div>
-          </Link>
+          <div className="flex-1 flex justify-start">
+            <Link href="/" className="relative z-10 flex items-center group">
+              <motion.div layout className="flex items-center">
+                <img 
+                  src="/logo.png" 
+                  alt="Splendid Tech" 
+                  className={cn(
+                    "h-auto transition-all duration-500",
+                    isScrolled ? "w-24 md:w-32" : "w-32 md:w-48"
+                  )}
+                />
+              </motion.div>
+            </Link>
+          </div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center bg-gray-50/50 backdrop-blur-md rounded-full px-2 py-1.5 border border-gray-200/50 shadow-sm">
+          <nav className="hidden lg:flex items-center bg-gray-50/50 backdrop-blur-md rounded-full px-1.5 py-1 border border-gray-200/50 shadow-sm z-10">
             {navLinksData.map((link) => {
               if (link.label === "Services") {
                 return (
                   <div 
                     key={link.label}
-                    className="relative py-1"
+                    className="relative py-0.5"
                     onMouseEnter={() => setIsServicesOpen(true)}
                     onMouseLeave={() => setIsServicesOpen(false)}
                   >
@@ -229,7 +231,7 @@ export function Navbar() {
           </nav>
 
           {/* Right Section: CTA & Menu Toggle */}
-          <div className="flex items-center gap-4">
+          <div className="flex-1 flex items-center justify-end gap-4">
             <div className="hidden lg:block relative group">
               {/* Shimmer Effect */}
               <div className="absolute inset-0 bg-primary/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-full" />
@@ -237,7 +239,7 @@ export function Navbar() {
                 href="/contact" 
                 className={cn(
                   "relative z-10 inline-flex items-center gap-2 bg-primary text-white font-bold rounded-full transition-all duration-300 hover:scale-105 active:scale-95 shadow-lg overflow-hidden",
-                  isScrolled ? "px-5 py-2 text-sm" : "px-7 py-3 text-base"
+                  isScrolled ? "px-4 py-1.5 text-[13px]" : "px-5 py-2 text-[13px]"
                 )}
               >
                 <span className="relative z-10">Get In Touch</span>
@@ -256,7 +258,7 @@ export function Navbar() {
               onClick={toggleMenu}
               className={cn(
                 "lg:hidden flex items-center justify-center rounded-full transition-all duration-300 relative overflow-hidden",
-                isScrolled ? "w-10 h-10 bg-gray-100 text-gray-800" : "w-12 h-12 bg-white/20 backdrop-blur-md text-gray-900 border border-white/20 shadow-lg"
+                isScrolled ? "w-8 h-8 bg-gray-100 text-gray-800" : "w-10 h-10 bg-white/20 backdrop-blur-md text-gray-900 border border-white/20 shadow-lg"
               )}
             >
               <AnimatePresence mode="wait">

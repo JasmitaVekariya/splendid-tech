@@ -155,7 +155,7 @@ const VideoShowcaseCard = () => {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-      className="relative w-full group mt-16 md:mt-24"
+      className="relative w-full group mt-6 md:mt-10"
     >
       {/* Cinematic Glowing Background */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] h-[80%] bg-gradient-to-r from-primary/10 via-blue-500/5 to-purple-500/10 blur-[100px] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
@@ -230,7 +230,6 @@ const VideoShowcaseCard = () => {
 };
 
 export function ModernHero() {
-  const [currentIndex, setCurrentIndex] = useState(0);
   const [wordIndex, setWordIndex] = useState(0);
   
   const rotatingWords = [
@@ -248,49 +247,27 @@ export function ModernHero() {
     return () => clearInterval(wordTimer);
   }, [rotatingWords.length]);
 
-  useEffect(() => {
-    const cardTimer = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 2) % testimonials.length);
-    }, 4000);
-    return () => clearInterval(cardTimer);
-  }, []);
-
-  const user1 = testimonials[currentIndex % testimonials.length];
-  const user2 = testimonials[(currentIndex + 1) % testimonials.length];
-
   return (
-    <section className="relative w-full pt-32 overflow-hidden bg-white">
+    <section className="relative w-full pt-[120px] overflow-hidden bg-white">
       
-      {/* Dynamic Background Image */}
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={currentIndex}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1, transition: { duration: 1.2 } }}
-          exit={{ opacity: 0, transition: { duration: 0.6 } }}
-          className="absolute inset-0 z-0"
-        >
-          <Image 
-            src={heroImages[currentIndex % heroImages.length]} 
-            alt="" 
-            fill 
-            className="object-cover"
-            sizes="100vw"
-            priority
-          />
-          <div className="absolute inset-0 bg-white/92 backdrop-blur-[2px]" />
-        </motion.div>
-      </AnimatePresence>
+      {/* Soft Premium Abstract Gradient Background */}
+      <div className="absolute inset-0 z-0 bg-white overflow-hidden pointer-events-none">
+        {/* Base layered linear gradient */}
+        <div className="absolute inset-0 bg-[linear-gradient(120deg,rgba(255,255,255,1)_0%,rgba(240,247,255,0.6)_40%,rgba(248,245,255,0.5)_80%,rgba(255,255,255,1)_100%)]" />
+        
+        {/* Soft blue glow near top-left */}
+        <div className="absolute -top-[15%] -left-[10%] w-[60%] md:w-[50%] h-[60%] md:h-[70%] rounded-full bg-primary/10 blur-[100px] md:blur-[140px]" />
+        
+        {/* Subtle center blend */}
+        <div className="absolute top-[15%] left-[50%] -translate-x-1/2 w-[70%] md:w-[60%] h-[50%] md:h-[60%] rounded-full bg-blue-400/5 blur-[100px] md:blur-[120px]" />
 
-      {/* Subtle color accents */}
-      <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none z-[1]">
-        <div className="absolute top-[5%] left-0 w-[500px] h-[500px] rounded-full bg-primary/5 blur-[150px]" />
-        <div className="absolute bottom-0 right-0 w-[500px] h-[500px] rounded-full bg-[#ff19fe]/5 blur-[150px]" />
+        {/* Soft purple accent to complement the blue */}
+        <div className="absolute top-[30%] -right-[10%] w-[50%] md:w-[40%] h-[60%] rounded-full bg-purple-400/5 blur-[100px] md:blur-[140px]" />
       </div>
 
       <div className="relative z-10">
         {/* ROW 1: Centered Content */}
-        <div className="max-w-4xl mx-auto px-6 md:px-12 mb-16 md:mb-24">
+        <div className="max-w-4xl mx-auto px-6 md:px-12 mb-6 md:mb-10">
           <div className="flex flex-col items-center justify-center text-center">
             
             {/* LEFT: Heading */}
@@ -301,49 +278,49 @@ export function ModernHero() {
                 transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
                 className="flex flex-col items-center"
               >
-                <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/5 border border-primary/10 text-primary text-[12px] md:text-[14px] font-bold mb-10">
-                  <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+                <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/5 border border-primary/10 text-primary text-[11px] md:text-[13px] font-bold mb-6">
+                  <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
                   Empowering 500+ Career Journeys
                 </div>
                 
                 <h1 className="flex flex-col items-center text-center font-black text-[#0f172a] leading-[0.95] tracking-tighter uppercase overflow-visible">
-                  <span className="text-3xl md:text-4xl lg:text-[2.6rem] text-slate-800 mb-2 font-bold opacity-90">Land Your</span>
+                  <span className="text-2xl md:text-3xl lg:text-[2rem] text-slate-800 mb-1 font-bold opacity-90">Land Your</span>
                   
                   {/* Vertical Scrolling Word Container */}
-                  <div className="h-[60px] md:h-[80px] lg:h-[90px] relative overflow-visible my-2 flex items-center justify-center">
+                  <div className="h-[40px] md:h-[60px] lg:h-[70px] relative overflow-visible my-1 flex items-center justify-center">
                     <AnimatePresence mode="wait">
                       <motion.span
                         key={wordIndex}
-                        initial={{ y: 30, opacity: 0 }}
+                        initial={{ y: 20, opacity: 0 }}
                         animate={{ y: 0, opacity: 1 }}
-                        exit={{ y: -30, opacity: 0 }}
+                        exit={{ y: -20, opacity: 0 }}
                         transition={{ 
                           duration: 0.5, 
                           ease: [0.16, 1, 0.3, 1]
                         }}
-                        className="absolute text-4xl md:text-5xl lg:text-[4.2rem] text-primary drop-shadow-sm whitespace-nowrap"
+                        className="absolute text-3xl md:text-4xl lg:text-[3.2rem] text-primary drop-shadow-sm whitespace-nowrap"
                       >
                         {rotatingWords[wordIndex]}
                       </motion.span>
                     </AnimatePresence>
                   </div>
                   
-                  <span className="text-3xl md:text-4xl lg:text-[2.6rem] text-slate-800 mt-2 font-bold opacity-90">in the USA</span>
+                  <span className="text-2xl md:text-3xl lg:text-[2rem] text-slate-800 mt-1 font-bold opacity-90">in the USA</span>
                 </h1>
 
                 {/* CTA Buttons */}
-                <div className="flex flex-col sm:flex-row items-center gap-4 mt-10 w-full justify-center">
+                <div className="flex flex-col sm:flex-row items-center gap-4 mt-8 w-full justify-center">
                   <Link 
                     href="/contact"
-                    className="relative group inline-flex items-center justify-center px-8 py-3.5 rounded-full bg-primary text-white text-xs md:text-sm font-black uppercase tracking-wider shadow-[0_10px_25px_rgba(25,43,194,0.25)] hover:shadow-[0_15px_35px_rgba(25,43,194,0.35)] transition-all duration-300 hover:-translate-y-[2px]"
+                    className="relative group inline-flex items-center justify-center px-6 py-3 rounded-full bg-primary text-white text-[11px] md:text-xs font-black uppercase tracking-wider shadow-[0_10px_25px_rgba(25,43,194,0.25)] hover:shadow-[0_15px_35px_rgba(25,43,194,0.35)] transition-all duration-300 hover:-translate-y-[2px]"
                   >
                     Download Brochure
-                    <ArrowRight className="w-4 h-4 ml-2 transition-transform duration-300 group-hover:translate-x-1" />
+                    <ArrowRight className="w-3.5 h-3.5 ml-2 transition-transform duration-300 group-hover:translate-x-1" />
                   </Link>
 
                   <Link 
                     href="/contact"
-                    className="inline-flex items-center justify-center px-8 py-3.5 rounded-full bg-white/40 backdrop-blur-md border border-slate-200/80 text-slate-800 text-xs md:text-sm font-black uppercase tracking-wider shadow-sm hover:bg-white/80 transition-all duration-300 hover:-translate-y-[2px]"
+                    className="inline-flex items-center justify-center px-6 py-3 rounded-full bg-white/40 backdrop-blur-md border border-slate-200/80 text-slate-800 text-[11px] md:text-xs font-black uppercase tracking-wider shadow-sm hover:bg-white/80 transition-all duration-300 hover:-translate-y-[2px]"
                   >
                     Book Demo
                   </Link>
